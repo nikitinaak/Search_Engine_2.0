@@ -272,7 +272,8 @@ public class SearchServiceImpl implements SearchService {
         response.setCount(searchDataRepository.countAllSearchData());
         Pageable pageable = PageRequest.of(offset, limit, Sort.by("relevance"));
         Page<SearchData> page = searchDataRepository.findAll(pageable);
-        response.setData(page);
+        List<SearchData> list = page.toList();
+        response.setData(list);
         logger.info(SEARCHING_MARKER, "Найдено результатов: " + response.getCount());
         logger.info(RESPONSE_MARKER, response.toString());
         return response;
